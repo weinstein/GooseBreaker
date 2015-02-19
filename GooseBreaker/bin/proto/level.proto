@@ -1,0 +1,71 @@
+option java_outer_classname = "LevelProto";
+option java_package = "proto";
+
+message Point {
+  required float x = 1;
+  required float y = 2;
+}
+
+
+message Rect {
+  required Point lower_bound = 1;
+  required Point upper_bound = 2;
+}
+
+
+message Triangle {
+  required Point pt1 = 1;
+  required Point pt2 = 2;
+  required Point pt3 = 3;
+}
+
+
+message Adjacency {
+  required int32 ice_triangle_a = 1;
+  required int32 edge_index_a = 2;
+  required int32 ice_triangle_b = 3;
+  required int32 edge_index_b = 4;
+}
+
+
+message IceTriangle {
+  required int32 id = 1;
+  required Triangle triangle = 2;
+  optional bool is_deleted = 3;
+}
+
+
+message IceSheet {
+  repeated IceTriangle piece_of_ice = 1;
+  repeated Adjacency adjacency = 2;
+  optional float max_area = 3;
+}
+
+
+message GoosePlacement {
+  required int32 id = 1;
+  required float size = 2;
+  required float angle = 3;
+  required float world_x = 4;
+  required float world_y = 5;
+}
+
+
+message UnlockConditions {
+  required string level = 1;
+  required string mode = 2;
+  required int32 score = 3;
+}
+
+
+message Level {
+  repeated IceSheet sheet = 1;
+  optional Rect bounds = 2;
+  repeated GoosePlacement goose = 3;
+  optional float bread_supply = 4;
+  optional string name = 5;
+  optional int64 time_limit_ms = 6;
+  optional int32 num_ice_sheets_goal = 7;
+  
+  optional UnlockConditions unlocks_after = 8;
+}
